@@ -10,17 +10,25 @@ class OpenAIWrapper:
             azure_deployment=deployment
         )
         
-    def return_keyword_by_mood_weather(self, weather, mood):
+    def return_keyword_by_mood_weather(self, weather, mood, temp, describe_mood):
         completion = self.openai_client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": """
-                    You are a specialized assistant for generating YouTube search keywords for popular and specific music tracks. 
-                    Based on the given weather and user mood, suggest exactly three keywords that reference artists, song titles, or well-known 
-                    genres that match the context. Ensure the keywords will likely lead to individual songs by artists or trending music. 
-                    Do not use generic terms like 'playlist' or 'beats.' 
-                    Provide results separated by commas, without comments or explanations."""},
-            {"role": "user", "content": f"Currently the weather is {weather} and the mood of the user is {mood}"}
+            {
+                "role": "system",
+                "content": """
+                    You are a specialized assistant for finding specific music tracks. 
+                    Based on the given weather and user mood  (1 is bad, 10 is superb), suggest exactly one well-known song title and artist 
+                    that best matches the context. Ensure the suggestion is a concrete track and avoid vague or overly broad results.
+                    Provide the result as 'Song Title - Artist' without comments or explanations.
+                """
+            },
+            {
+                "role": "user",
+                "content": f"""
+                    Currently the weather is {weather} ({temp} celsius degrees) and the mood of the user is {mood}
+                    """ + (f" and the user described the mood as {describe_mood}" if describe_mood else "")
+            }
         ],
         max_tokens=50
         )
