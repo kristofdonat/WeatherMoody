@@ -4,10 +4,6 @@ import requests
 from utils.openai_client import OpenAIWrapper
 from utils.last_fm_client import LastFMWrapper
 
-import dotenv
-import os
-
-dotenv.load_dotenv()
 
 st.write("""
          # WeatherMoody""")
