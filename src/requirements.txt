@@ -207,7 +207,6 @@ statistics-msgs==2.0.2
 std-msgs==5.3.5
 std-srvs==5.3.5
 stereo-msgs==5.3.5
-streamlit==1.41.1
 teleop-twist-keyboard==2.4.0
 tenacity==9.0.0
 tf2-geometry-msgs==0.36.4
